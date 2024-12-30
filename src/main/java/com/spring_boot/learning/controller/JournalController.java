@@ -1,13 +1,13 @@
 package com.spring_boot.learning.controller;
 
 import com.spring_boot.learning.model.Journal;
-import com.spring_boot.learning.request.Journal.AddJournalRequest;
+import com.spring_boot.learning.request.AddJournalRequest;
 import com.spring_boot.learning.response.ApiResponse;
 import com.spring_boot.learning.services.journal.JournalServiceI;
-import com.spring_boot.learning.services.journal.JournalServiceImpl;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 @AllArgsConstructor
@@ -16,9 +16,14 @@ import org.springframework.web.bind.annotation.*;
 public class JournalController {
     final JournalServiceI journalService;
 
-    @GetMapping("/hello")
-    public Object Hello() {
-        return "Hello";
+    @GetMapping("/all")
+//    @PreAuthorize(value = "hasRole('ADMIN') or hasRole('USER')")
+    public ResponseEntity<ApiResponse> Hello() {
+        try {
+            return  ResponseEntity.ok(new ApiResponse("All-Journal", journalService.getAllJournal()));
+        }catch (Exception e){
+            return  ResponseEntity.status(HttpStatus.NOT_FOUND).body(new ApiResponse("Journal Not Found", e.getMessage()));
+        }
     }
 
     @PostMapping("/create")

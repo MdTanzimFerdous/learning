@@ -3,7 +3,7 @@ package com.spring_boot.learning.services.journal;
 import com.spring_boot.learning.exceptions.JournalNotFoundException;
 import com.spring_boot.learning.model.Journal;
 import com.spring_boot.learning.repository.JournalRepository;
-import com.spring_boot.learning.request.Journal.AddJournalRequest;
+import com.spring_boot.learning.request.AddJournalRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

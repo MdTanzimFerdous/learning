@@ -1,7 +1,7 @@
 package com.spring_boot.learning.services.journal;
 
 import com.spring_boot.learning.model.Journal;
-import com.spring_boot.learning.request.Journal.AddJournalRequest;
+import com.spring_boot.learning.request.AddJournalRequest;
 
 import java.util.List;
 

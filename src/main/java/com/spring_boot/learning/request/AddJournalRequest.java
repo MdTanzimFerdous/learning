@@ -1,4 +1,4 @@
-package com.spring_boot.learning.request.Journal;
+package com.spring_boot.learning.request;
 
 import com.spring_boot.learning.model.Journal;
 import lombok.Data;
