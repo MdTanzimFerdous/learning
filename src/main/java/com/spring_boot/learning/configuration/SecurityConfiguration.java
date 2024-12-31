@@ -1,6 +1,8 @@
 package com.spring_boot.learning.configuration;
 
+import com.spring_boot.learning.filter.CustomJwtFilter;
 import com.spring_boot.learning.services.auth.CustomUserDetailsService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,6 +20,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableMethodSecurity
@@ -25,6 +28,9 @@ public class SecurityConfiguration {
 
     @Value(value = "${api.prefix}")
     String api;
+
+    @Autowired
+    private CustomJwtFilter customJwtFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
@@ -37,7 +43,8 @@ public class SecurityConfiguration {
                                 .requestMatchers(api+"/auth/*").permitAll()
                                 .anyRequest().authenticated()
 
-                );
+                )
+                .addFilterBefore(customJwtFilter, UsernamePasswordAuthenticationFilter.class);
 
         return httpSecurity.build();
     }

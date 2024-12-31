@@ -27,9 +27,5 @@ public class AuthServiceImpl implements AuthService{
         return authRepository.save(user);
     }
 
-    @Override
-    public Optional<User> login(AuthRequest authRequest) {
-        Optional<User> user = Optional.ofNullable(authRepository.findByEmailAndPassword(authRequest.getEmail(), passwordEncoder.encode(authRequest.getPassword())).orElseThrow(() -> new UserNotFoundException("User Not Found")));
-        return user;
-    }
+
 }

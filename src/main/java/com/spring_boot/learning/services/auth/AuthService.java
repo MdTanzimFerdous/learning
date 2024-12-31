@@ -7,6 +7,6 @@ import java.util.Optional;
 
 public interface AuthService {
     User register(AuthRequest authRequest);
-    Optional<User> login(AuthRequest authRequest);
+
 
 }

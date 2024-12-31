@@ -5,6 +5,7 @@ import com.spring_boot.learning.model.Journal;
 import com.spring_boot.learning.repository.JournalRepository;
 import com.spring_boot.learning.request.AddJournalRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +16,10 @@ public class JournalServiceImpl implements JournalServiceI {
 
     final JournalRepository journalRepository;
 
+    private String getAuthenticatedEmail(){
+        return SecurityContextHolder.getContext().getAuthentication().getName();
+    }
+
     @Override
     public Journal getJournalById(Long Id) {
         return journalRepository.findById(Id).orElseThrow(()-> new JournalNotFoundException("Not Found!!!"));
@@ -22,6 +27,7 @@ public class JournalServiceImpl implements JournalServiceI {
 
     @Override
     public List<Journal> getAllJournal() {
+        System.out.println("Who is me "+getAuthenticatedEmail());
         return journalRepository.findAll();
     }
 
